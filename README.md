@@ -15,4 +15,4 @@ Simple Weather App writen in JavaScript.
 
 Simple Sticky Notes App writen in JavaScript.
 
-![image](https://user-images.githubusercontent.com/102261159/202697158-3b23de47-9c72-4620-85b9-65f141ed10b6.png)
+![image](https://user-images.githubusercontent.com/102261159/202699279-896580f8-2b88-40e5-a9e0-ba39e4243c2a.png)
