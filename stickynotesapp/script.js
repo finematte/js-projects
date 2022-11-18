@@ -1,6 +1,8 @@
 const notesContainer = document.getElementById("app");
 const addNoteButton = notesContainer.querySelector(".add-note");
 
+let uniqueID = []
+
 getNotes().forEach((note) => {
   const noteElement = createNoteElement(note.id, note.content);
   notesContainer.insertBefore(noteElement, addNoteButton);
@@ -42,16 +44,29 @@ function createNoteElement(id, content) {
 
 function addNote() {
   const notes = getNotes();
-  const noteObject = {
-    id: Math.floor(Math.random() * 100000),
-    content: "",
-  };
 
-  const noteElement = createNoteElement(noteObject.id, noteObject.content);
-  notesContainer.insertBefore(noteElement, addNoteButton);
+  let id = Math.floor(Math.random() * 1000);
 
-  notes.push(noteObject);
-  saveNotes(notes);
+  if (uniqueID.length < 1000) {
+      while (uniqueID.includes(id, 0)) {
+        id = Math.floor(Math.random() * 1000);
+    }
+
+    uniqueID.push(id);
+
+    const noteObject = {
+      id: id,
+      content: "",
+    };
+
+    const noteElement = createNoteElement(noteObject.id, noteObject.content);
+    notesContainer.insertBefore(noteElement, addNoteButton);
+  
+    notes.push(noteObject);
+    saveNotes(notes);
+  } else {
+    confirm("You've created too many notes! Delete one in order to create another.")
+  }
 }
 
 function updateNote(id, newContent) {
@@ -64,6 +79,8 @@ function updateNote(id, newContent) {
 
 function deleteNote(id, element) {
   const notes = getNotes().filter((note) => note.id != id);
+
+  uniqueID = uniqueID.filter(e => e !== id)
 
   saveNotes(notes);
   notesContainer.removeChild(element);
