@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.title {
+  font-size: 33px;
+  font-weight: 600;
+  color: blue;
+  letter-spacing: 1px;
+  margin: 30px;
+}
+
+.to-do-list {
+  width: 450px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.881);
+}
+
+.list-head {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 20px;
+}
+
+.entered-list {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+.add-list {
+  border: none;
+  border-radius: 5px;
+  background-color: blue;
+  outline: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.add-list.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tasks {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.item {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+  letter-spacing: 1px;
+}
+
+.item.completed p {
+  text-decoration: line-through;
+  color: #11111180;
+}
+
+.item-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-button i {
+  color: blue;
+  font-size: 16px;
+  cursor: pointer;
+}
