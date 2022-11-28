@@ -1,37 +1,39 @@
-const notesContainer = document.getElementById("app");
-const addNoteButton = notesContainer.querySelector(".add-note");
+import './style.css';
 
-let uniqueID = []
+const notesContainer = document.getElementById('app');
+const addNoteButton = notesContainer.querySelector('.add-note');
+
+let uniqueID = 0;
 
 getNotes().forEach((note) => {
   const noteElement = createNoteElement(note.id, note.content);
   notesContainer.insertBefore(noteElement, addNoteButton);
 });
 
-addNoteButton.addEventListener("click", () => addNote());
+addNoteButton.addEventListener('click', () => addNote());
 
 function getNotes() {
-  return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+  return JSON.parse(localStorage.getItem('stickynotes-notes') || '[]');
 }
 
 function saveNotes(notes) {
-  localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
+  localStorage.setItem('stickynotes-notes', JSON.stringify(notes));
 }
 
 function createNoteElement(id, content) {
-  const element = document.createElement("textarea");
+  const element = document.createElement('textarea');
 
-  element.classList.add("note");
+  element.classList.add('note');
   element.value = content;
-  element.placeholder = "Empty Sticky Note";
+  element.placeholder = 'Empty Sticky Note';
 
-  element.addEventListener("change", () => {
+  element.addEventListener('change', () => {
     updateNote(id, element.value);
   });
 
-  element.addEventListener("dblclick", () => {
+  element.addEventListener('dblclick', () => {
     const doDelete = confirm(
-      "Are you sure you wish to delete this sticky note?"
+      'Are you sure you wish to delete this sticky note?'
     );
 
     if (doDelete) {
@@ -45,28 +47,18 @@ function createNoteElement(id, content) {
 function addNote() {
   const notes = getNotes();
 
-  let id = Math.floor(Math.random() * 1000);
+  const noteObject = {
+    id: uniqueID,
+    content: '',
+  };
 
-  if (uniqueID.length < 1000) {
-      while (uniqueID.includes(id, 0)) {
-        id = Math.floor(Math.random() * 1000);
-    }
+  uniqueID += 1;
 
-    uniqueID.push(id);
+  const noteElement = createNoteElement(noteObject.id, noteObject.content);
+  notesContainer.insertBefore(noteElement, addNoteButton);
 
-    const noteObject = {
-      id: id,
-      content: "",
-    };
-
-    const noteElement = createNoteElement(noteObject.id, noteObject.content);
-    notesContainer.insertBefore(noteElement, addNoteButton);
-  
-    notes.push(noteObject);
-    saveNotes(notes);
-  } else {
-    confirm("You've created too many notes! Delete one in order to create another.")
-  }
+  notes.push(noteObject);
+  saveNotes(notes);
 }
 
 function updateNote(id, newContent) {
@@ -79,8 +71,6 @@ function updateNote(id, newContent) {
 
 function deleteNote(id, element) {
   const notes = getNotes().filter((note) => note.id != id);
-
-  uniqueID = uniqueID.filter(e => e !== id)
 
   saveNotes(notes);
   notesContainer.removeChild(element);
